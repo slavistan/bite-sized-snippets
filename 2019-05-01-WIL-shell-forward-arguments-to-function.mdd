@@ -1,0 +1,23 @@
+---
+layout: what-ive-learned
+title: Foward shell script arguments to function
+tags: linux
+is_wil_snippet: true
+---
+**tl;dr** Use `shift` to consume arguments beginning at the first. `$@$ contains the remainder.
+
+```sh
+#!/bin/zsh
+# Main user interface
+# Forwards calls to the language-specific scripts
+
+case $1 in # First argument contains the command
+  cpp)
+    shift
+    ./skeleton-cpp.zsh $@ # Remainder is passed on
+    ;;
+  *)
+    echo "Language not implemented."
+    ;;
+esac
+```
