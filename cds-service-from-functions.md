@@ -1,9 +1,9 @@
 ---
-title: CDS Service Made From Functions
+title: CDS Snippets
 tags: cds cap
 ---
 
-# Expose functions via a service
+#### Exposing a function
 
 ```cds
 /* 📁 srv/test-srv.cds */
@@ -34,3 +34,16 @@ module.exports = function(srv) {
   })
 }
 ```
+
+---
+
+#### Manual Routing Of Services
+
+**tl;dr** At service definition use the *path* decorator `@(path: '/mypath')` to manually route a service. The default path corresponds to the source file name.
+
+```cds
+service MyService @(path: '/mysrv') {
+  // ...
+}
+```
+
