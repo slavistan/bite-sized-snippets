@@ -61,3 +61,37 @@ await cds.read(cds.entitites.Cards)
 /* CQL API */
 await cds.run(cds.parse.cql('SELECT * FROM vizn_Cards'))
 ```
+
+---
+
+#### Pseudo-Automatic Deep Insert of Defaults
+
+
+```cds
+// db/service.cds
+
+entity Cards {
+    key ID: UUID;
+    command: String;
+    schedule: Composition of one Schedules on schedule.card=$self; // <-- DOES NOT work with Association of. Why?
+}
+
+entity Schedules {
+    key ID: UUID;
+    card: Association to Cards; // <-- MUST NOT be declared 'not null'. Stupid.
+    asdf: Integer default 1337;
+}
+
+// Project data model to service
+// ...
+```
+
+```http
+POST http://localhost:4004/cards/Cards
+Content-Type: application/json
+
+{
+  "command": "Hi",
+  "schedule": {} // <-- MUST be included to generate a default schedule. Stupid.
+}
+```
