@@ -47,3 +47,17 @@ service MyService @(path: '/mysrv') {
 }
 ```
 
+---
+
+#### Different Query Syntaxes
+
+```js
+/* "Fluent API" */
+await SELECT.from(cds.entities.Cards)
+
+/* Crud API */
+await cds.read(cds.entitites.Cards)
+
+/* CQL API */
+await cds.run(cds.parse.cql('SELECT * FROM vizn_Cards'))
+```
